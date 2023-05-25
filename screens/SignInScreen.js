@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Alert, Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import { Alert, Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
 import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import log from '../Log';
@@ -62,7 +62,7 @@ const SignInScreen = (props) => {
         //         }
         //     }
         // }
-        let url_check_login = "http://localhost:3000/users" + username;
+        let url_check_login = "http://localhost:3000/users/" + username;
         fetch(url_check_login)
             .then((res) => {
                 return res.json();
@@ -98,25 +98,33 @@ const SignInScreen = (props) => {
             {/* <CustomInput placeholder='Username' value={username} setValue={setUsername} secureTextEntry={false} />
             <CustomInput placeholder='Password' value={password} setValue={setPassword} secureTextEntry={true} /> */}
             <TextInput placeholder='usesname' style={{
-                borderWidth:1,
-                marginBottom:10,
-                padding:10,
-                borderRadius:5
-            }}>
+                borderWidth: 1,
+                marginBottom: 10,
+                padding: 10,
+                borderRadius: 5
+            }} onChangeText={(txt) => { setUsername(txt) }}>
             </TextInput>
             <TextInput placeholder='password' style={{
-                borderWidth:1,
-                padding:10,
-                borderRadius:5
-            }}></TextInput>
+                borderWidth: 1,
+                padding: 10,
+                borderRadius: 5
+            }} onChangeText={(txt) => { setPassword(txt) }} secureTextEntry={true}>
+            </TextInput>
             <TouchableHighlight style={{
-                
-            }}>
+                marginTop:10,
+                backgroundColor: '#3B71F3',
+                width: '100%',
+                padding: 15,
+                marginVertical: 5,
+                alignItems: 'center',
+                borderRadius: 5
+            }} onPress={doLogin}>
                 <Text style={{
+                    color: 'white'
                 }}>Login</Text>
             </TouchableHighlight>
-            {/* <CustomButton btnLabel={'Sign In'} onPress={doLogin} />
-            <CustomButton btnLabel={'Back to Home'} onPress={navigateToHome} /> */}
+
+            <CustomButton btnLabel={'Back to Home'} onPress={navigateToHome} />
         </View>
     );
 };
