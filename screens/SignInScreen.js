@@ -63,25 +63,26 @@ const SignInScreen = (props) => {
         //     }
         // }
         let url_check_login = "http://localhost:3000/users" + username;
+
+
         fetch(url_check_login)
-            .then((res) => {
-                return res.json();
-            })
+            .then((res) => { return res.json(); })
             .then(async (res_login) => {
                 if (res_login.length != 1) {
-                    Alert.alert("Sai username");
+                    alert("Sai username hoặc lỗi trùng lặp dữ liệu");
                     return;
                 } else {
                     let objU = res_login[0];
                     if (objU.password != password) {
-                        Alert.alert("Sai password");
-                        return;
+                        alert("Sai password"); return;
                     } else {
                         try {
-                            await AsyncStorage.setItem('loginInfo', objU)
-                            props.navigation.navigate('Home');
-                        } catch (error) {
-                            console.log(error);
+                            await AsyncStorage.setItem('loginInfo', JSON.stringify(objU));
+                            // chuyển màn hình sang màn hình home
+                            props.navigation.navigate('Home1');
+                        } catch (e) {
+                            // saving error
+                            console.log(e);
                         }
                     }
                 }
@@ -95,7 +96,7 @@ const SignInScreen = (props) => {
     return (
         <View style={styles.root}>
             <View style={{
-                alignItems:'center'
+                alignItems: 'center'
             }}>
                 <Image source={require('../assets/logo.png')} style={styles.logo} />
             </View>
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     logo: {
-        marginTop:50,
+        marginTop: 50,
         width: '50%',
         height: '50%',
         resizeMode: 'contain'
