@@ -4,30 +4,32 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import log from '../Log';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
 
 const SignInScreen = (props) => {
     let users = [];
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const navigation = useNavigation('');
 
     // Function to fetch data from the API
-    async function fetchData() {
-        try {
-            const response = await fetch('http://localhost:3000/users');
-            const data = await response.json();
-            return data;
-        } catch (error) {
-            log.error('Fetch data failed ' + error);
-            return null;
-        }
-    }
+    // async function fetchData() {
+    //     try {
+    //         const response = await fetch('http://localhost:3000/users');
+    //         const data = await response.json();
+    //         return data;
+    //     } catch (error) {
+    //         log.error('Fetch data failed ' + error);
+    //         return null;
+    //     }
+    // }
 
     // Call the fetchData function and store the result in a variable
-    async function storeData() {
-        users = await fetchData();
-    }
+    // async function storeData() {
+    //     users = await fetchData();
+    // }
 
-    storeData();
+    // storeData();
 
     const doLogin = () => {
         // Kiểm tra dữ liệu gồm username và password
@@ -62,7 +64,7 @@ const SignInScreen = (props) => {
         //         }
         //     }
         // }
-        let url_check_login = "http://localhost:3000/users/" + username;
+        let url_check_login = "http://localhost:3000/users" + username;
         fetch(url_check_login)
             .then((res) => {
                 return res.json();
