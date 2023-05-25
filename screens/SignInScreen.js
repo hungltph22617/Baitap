@@ -10,25 +10,6 @@ const SignInScreen = (props) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    // Function to fetch data from the API
-    // async function fetchData() {
-    //     try {
-    //         const response = await fetch('http://localhost:3000/users');
-    //         const data = await response.json();
-    //         return data;
-    //     } catch (error) {
-    //         log.error('Fetch data failed ' + error);
-    //         return null;
-    //     }
-    // }
-
-    // Call the fetchData function and store the result in a variable
-    // async function storeData() {
-    //     users = await fetchData();
-    // }
-
-    // storeData();
-
     const doLogin = () => {
         // Kiểm tra dữ liệu gồm username và password
         if (username.length == 0) {
@@ -40,52 +21,35 @@ const SignInScreen = (props) => {
             alert('Password is required');
             return;
         }
-
-        // Tạo đối tượng lưu giữ thông tin login
-        // let request = { username: username, password: password };
-
-        // log.info('authInfo: ' + JSON.stringify(request));
-
-        // if (users) {
-        //     const authInfo = users.find((user) => user.userName === request.username);
-
-        //     if (!authInfo) {
-        //         Alert.alert('Notification', 'Cant find user infomation', [{ text: 'Cancel', onPress: () => log.error('Cant find user ' + request.username) }]);
-        //     } else {
-        //         if (!(authInfo.password === request.password)) {
-        //             Alert.alert('Notification', 'Password is not correct', [{ text: 'Cancel', onPress: () => log.error('Password is not correct for ' + request.username) }]);
-        //         } else {
-        //             Alert.alert('Notification', 'Login successfull ' + request.username, [
-        //                 { text: 'OK', onPress: () => navigateToHome() },
-        //                 { text: 'Cancel', onPress: () => log.info('Press Cancel') }
-        //             ]);
-        //         }
-        //     }
-        // }
-        let url_check_login = "http://localhost:3000/users" + username;
+        let url_check_login = "http://192.168.0.104:3000/users" + "?username=" + username;
 
 
         fetch(url_check_login)
-            .then((res) => { return res.json(); })
-            .then(async (res_login) => {
+            .then((res) => {
+                return res.json();
+            })
+            .then((res_login) => {
                 if (res_login.length != 1) {
                     alert("Sai username hoặc lỗi trùng lặp dữ liệu");
                     return;
                 } else {
                     let objU = res_login[0];
                     if (objU.password != password) {
-                        alert("Sai password"); return;
+                        alert("Sai password");
+                        return;
                     } else {
                         try {
-                            await AsyncStorage.setItem('loginInfo', JSON.stringify(objU));
-                            // chuyển màn hình sang màn hình home
+                            //await AsyncStorage.setItem('loginInfo', JSON.stringify(objU));
                             props.navigation.navigate('Home1');
-                        } catch (e) {
-                            // saving error
-                            console.log(e);
+                        } catch (error) {
+                            console.error(error);
                         }
                     }
                 }
+            })
+            .catch(e => {
+                console.error(e);
+                return e;
             })
     };
 
