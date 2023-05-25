@@ -2,7 +2,7 @@
     "users": [
         {
             "id": 1,
-            "userName": "giangdh20",
+            "username": "giangdh20",
             "password": "12345",
             "firtName": "Giang",
             "lastName": "Dương",
@@ -13,7 +13,7 @@
         },
         {
             "id": 2,
-            "userName": "hunglt123",
+            "username": "hunglt123",
             "password": "12345",
             "firtName": "Hung",
             "lastName": "Le",

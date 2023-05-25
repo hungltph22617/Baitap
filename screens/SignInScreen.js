@@ -4,13 +4,11 @@ import CustomInput from '../components/CustomInput';
 import CustomButton from '../components/CustomButton';
 import log from '../Log';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useNavigation } from '@react-navigation/native';
 
 const SignInScreen = (props) => {
     let users = [];
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const navigation = useNavigation('');
 
     // Function to fetch data from the API
     // async function fetchData() {
@@ -96,7 +94,11 @@ const SignInScreen = (props) => {
 
     return (
         <View style={styles.root}>
-            <Image source={require('../assets/logo.png')} style={styles.logo} />
+            <View style={{
+                alignItems:'center'
+            }}>
+                <Image source={require('../assets/logo.png')} style={styles.logo} />
+            </View>
             {/* <CustomInput placeholder='Username' value={username} setValue={setUsername} secureTextEntry={false} />
             <CustomInput placeholder='Password' value={password} setValue={setPassword} secureTextEntry={true} /> */}
             <TextInput placeholder='usesname' style={{
@@ -113,7 +115,7 @@ const SignInScreen = (props) => {
             }} onChangeText={(txt) => { setPassword(txt) }} secureTextEntry={true}>
             </TextInput>
             <TouchableHighlight style={{
-                marginTop:10,
+                marginTop: 10,
                 backgroundColor: '#3B71F3',
                 width: '100%',
                 padding: 15,
@@ -138,6 +140,7 @@ const styles = StyleSheet.create({
         padding: 20
     },
     logo: {
+        marginTop:50,
         width: '50%',
         height: '50%',
         resizeMode: 'contain'
