@@ -13,15 +13,15 @@ const SignInScreen = (props) => {
     const doLogin = () => {
         // Kiểm tra dữ liệu gồm username và password
         if (username.length == 0) {
-            alert('Username is required');
+            alert('Không được để trống usesname');
             return;
         }
 
         if (password.length == 0) {
-            alert('Password is required');
+            alert('Không được để trống password');
             return;
         }
-        let url_check_login = "http://192.168.0.104:3000/users" + "?username=" + username;
+        let url_check_login = "http://192.168.0.101:3000/users" + "?username=" + username;
 
 
         fetch(url_check_login)
